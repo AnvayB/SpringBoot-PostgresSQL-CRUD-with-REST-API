@@ -1,6 +1,5 @@
 package net.javaguides.springboot.controller;
 
-import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.model.Employee;
 import net.javaguides.springboot.repository.EmployeeRepository;
 import org.slf4j.Logger;
@@ -34,7 +33,6 @@ public class EmployeeController {
     @GetMapping("/employees/{emailId}")
     public ResponseEntity<Employee> getEmployeeByEmailId(@PathVariable(value = "emailId") String employeeEmail) {
         Employee employee = employeeRepository.findByEmailId(employeeEmail);
-//                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this email :: " + employeeEmail));
         return ResponseEntity.ok().body(employee);
     }
 
@@ -47,10 +45,9 @@ public class EmployeeController {
 
 //    update employee
     @PutMapping("/employees/{emailId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") String employeeEmail,
-                                                   @Validated @RequestBody Employee employeeDetails) throws ResourceNotFoundException {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "emailId") String employeeEmail,
+                                                   @Validated @RequestBody Employee employeeDetails) {
         Employee employee = employeeRepository.findByEmailId(employeeEmail);
-//                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this email :: " + employeeEmail));
         employee.setEmailId(employeeDetails.getEmailId());
         employee.setLastName(employeeDetails.getLastName());
         employee.setFirstName(employeeDetails.getFirstName());
@@ -62,7 +59,6 @@ public class EmployeeController {
     @DeleteMapping("/employees/{emailId}")
     public Map<String, Boolean> deleteEmployee(@PathVariable(value = "emailId") String employeeEmail) {
         Employee employee = employeeRepository.findByEmailId(employeeEmail);
-//                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this email :: " + employeeEmail));
         employeeRepository.delete(employee);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
