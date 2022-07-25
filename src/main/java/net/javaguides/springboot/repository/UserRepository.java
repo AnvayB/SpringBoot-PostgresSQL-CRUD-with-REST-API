@@ -1,10 +1,10 @@
 package net.javaguides.springboot.repository;
 
-import net.javaguides.springboot.model.Employee;
+import net.javaguides.springboot.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    Employee findByEmailId(String emailId);
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmailId(String emailId);
 }
