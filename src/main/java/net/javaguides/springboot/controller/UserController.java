@@ -24,27 +24,27 @@ public class UserController {
     private UserRepository userRepository;
 
 //    get users
-    @GetMapping("/users")
+    @GetMapping("/employees")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
 //    get user by id
-    @GetMapping("/users/{emailId}")
+    @GetMapping("/employees/{emailId}")
     public ResponseEntity<User> getUserByEmailId(@PathVariable(value = "emailId") String userEmail) {
         User user = userRepository.findByEmailId(userEmail);
         return ResponseEntity.ok().body(user);
     }
 
 //    save user
-    @PostMapping("/users")
+    @PostMapping("/employees")
     public User createUser(@RequestBody User user) {
         logger.info("Create Users");
         return userRepository.save(user);
     }
 
 //    update user
-    @PutMapping("/users/{emailId}")
+    @PutMapping("/employees/{emailId}")
     public ResponseEntity<User> updateUsers(@PathVariable(value = "emailId") String userEmail,
                                                @Validated @RequestBody User userDetails) {
         User user = userRepository.findByEmailId(userEmail);
@@ -56,7 +56,7 @@ public class UserController {
     }
 
 //    delete user
-    @DeleteMapping("/users/{emailId}")
+    @DeleteMapping("/employees/{emailId}")
     public Map<String, Boolean> deleteUsers(@PathVariable(value = "emailId") String userEmail) {
         User user = userRepository.findByEmailId(userEmail);
         userRepository.delete(user);
