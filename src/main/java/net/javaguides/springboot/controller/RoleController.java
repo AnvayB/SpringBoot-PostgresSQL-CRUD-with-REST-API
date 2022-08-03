@@ -41,7 +41,7 @@ public class RoleController {
     }
 
 //    update user
-    @PutMapping("/employees/{title}")
+    @PutMapping("/roles/{title}")
     public ResponseEntity<Role> updateRoles(@PathVariable(value = "title") String roleTitle, @Validated @RequestBody Role roleDetails) {
         Role role = roleRepository.findByTitle(roleTitle);
         role.setTitle(roleDetails.getTitle());
